@@ -8,5 +8,16 @@ def main():
             ret += int(s)
     print(ret)
 
+
+def main2():
+    st = open("day1.txt").read().strip()
+    ret = 0
+    half_len = len(st)//2
+    for i in range(half_len):
+        if st[i] == st[i+half_len]:
+            ret += int(st[i]) * 2
+    print(ret)
+
 if __name__ == '__main__':
     main()
+    main2()
