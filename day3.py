@@ -22,9 +22,46 @@ def main(d):
         if d > corners[i] and d < corners[i+1]:
             return layer * 2 - min(d-corners[i], corners[i+1]-d)
 
+
+def main2(d):
+    curr = [1, 2, 4, 5, 10, 11, 23, 25]
+    layer = 1
+    while True:
+        prev = curr
+        curr = []
+        layer += 1
+        j = 0
+        total = (layer*2+1)*(layer*2+1)-(layer*2-1)*(layer*2-1)
+        for i in range(total):
+            if i == 0:
+                curr.append(prev[j] + prev[j-1])
+                #print(curr, j)
+            elif i + 2 == total:
+                curr.append(curr[-1] + prev[j] + prev[j-1] + curr[0])
+                #print(curr, j)
+            elif i + 1 == total:
+                curr.append(curr[-1] + prev[j] + curr[0])
+                #print(curr, j)
+            elif (i+2) % (layer*2) == 0:
+                curr.append(curr[-1] + prev[j-1] + prev[j])
+                #print(curr, j)
+            elif (i+1) % (layer*2) == 0:
+                curr.append(curr[-1] + prev[j])
+                #print(curr, j)
+            elif i % (layer*2) == 0:
+                curr.append(curr[-1] + curr[-2] + prev[j] + prev[j+1])
+                #print(curr, j)
+                j += 1
+            else:
+                curr.append(curr[-1] + prev[j] + prev[j-1] + prev[j+1])
+                #print(curr, j)
+                j += 1
+        if curr[-1] > d:
+            for x in curr:
+                if x > d:
+                    return x
+
+
 if __name__ == '__main__':
-    print(main(1))
-    print(main(12))
-    print(main(23))
-    print(main(1024))
     print(main(361527))
+    print(main2(361527))
